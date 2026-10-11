@@ -1,3 +1,5 @@
+`include "clock_divider.v"
+
 module Agreggator(
     input clk,
     input RESET,
@@ -7,8 +9,13 @@ module Agreggator(
 );
 
 
+wire new_clk;
+divider div 
+( .CLOCK(clk), 
+.RESET(RESET), 
+.out_clk(new_clk));
 
-always @(posedge clk) begin
+always @(posedge new_clk) begin
     if(RESET) begin
         LEDS <= '1;
     end else begin
